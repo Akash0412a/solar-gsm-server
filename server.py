@@ -2,7 +2,11 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-latest = {}
+latest = {
+    "voltage": None,
+    "current": None,
+    "temperature": None
+}
 
 @app.route("/data", methods=["POST"])
 def receive():
@@ -17,9 +21,15 @@ def receive():
 
 
 @app.route("/latest")
-def latest():
+def get_latest():
 
     return jsonify(latest)
+
+
+@app.route("/")
+def home():
+
+    return "Solar GSM Server Running"
 
 
 app.run(host="0.0.0.0", port=10000)
