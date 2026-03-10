@@ -1,12 +1,14 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-latest = {
-    "voltage": None,
-    "current": None,
-    "temperature": None
-}
+latest = {}
+
+@app.route("/")
+def home():
+    return "Solar GSM Server Running"
 
 @app.route("/data", methods=["POST"])
 def receive():
@@ -19,17 +21,9 @@ def receive():
 
     return "OK"
 
-
 @app.route("/latest")
 def get_latest():
 
     return jsonify(latest)
-
-
-@app.route("/")
-def home():
-
-    return "Solar GSM Server Running"
-
 
 app.run(host="0.0.0.0", port=10000)
