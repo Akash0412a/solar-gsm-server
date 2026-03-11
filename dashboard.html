@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Solar Monitoring</title>
+</head>
+
+<body>
+
+<h2>Solar Monitoring Dashboard</h2>
+
+Voltage: <h1 id="v">0</h1>
+Current: <h1 id="c">0</h1>
+Temperature: <h1 id="t">0</h1>
+
+<script>
+
+async function update(){
+
+let r = await fetch("/latest")
+let d = await r.json()
+
+document.getElementById("v").innerText = d.voltage
+document.getElementById("c").innerText = d.current
+document.getElementById("t").innerText = d.temperature
+
+}
+
+setInterval(update,2000)
+
+</script>
+
+</body>
+
+</html>
